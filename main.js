@@ -4,6 +4,7 @@ var canvasContext = null;
 var WIDTH=500;
 var HEIGHT=50;
 var rafID = null;
+const buttonEl = document.querySelector('button');
 
 window.onload = function() {
 
@@ -46,7 +47,7 @@ window.onload = function() {
 
 // НЕУДАЧА
 function didntGetStream() {
-    alert('Stream generation failed.');
+    alert('Stream generation failed. Do you have at least one camera connected?');
 }
 
 var mediaStreamSource = null;
@@ -81,3 +82,12 @@ function drawLoop( time ) {
     // set up the next visual callback
     rafID = window.requestAnimationFrame( drawLoop );
 }
+
+buttonEl.addEventListener('click', function() {
+    if (audioContext.state === 'suspended') {
+        audioContext.resume();
+    }
+    if (audioContext.state === 'running') {
+        audioContext.suspend();
+    }
+})
